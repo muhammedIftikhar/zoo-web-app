@@ -1,19 +1,17 @@
 // SignUp.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link,useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import './SignUp.css'; // Import SignUp.css for styling
 
 function SignUp() {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -23,13 +21,18 @@ function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Add your sign-up logic here
-    console.log('Name:', name);
-    console.log('Username:', username);
+    console.log('Email:', email);
     console.log('Password:', password);
     // Reset the form fields after submission
-    setName('');
-    setUsername('');
+    if(email && password){
+    navigate('/customer-profile');
+    setEmail('');
     setPassword('');
+    }
+    else{
+      alert('enter both fields')
+    }
+    
   };
 
   return (
@@ -38,16 +41,9 @@ function SignUp() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Name"
-          value={name}
-          onChange={handleNameChange}
-          className="input-field"
-        />
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={handleUsernameChange}
+          placeholder="Email"
+          value={email}
+          onChange={handleEmailChange}
           className="input-field"
         />
         <input
